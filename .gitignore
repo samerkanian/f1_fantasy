@@ -1,3 +1,4 @@
 *.ipynb
 venv
 *.code-workspace
+*.__pycache__
