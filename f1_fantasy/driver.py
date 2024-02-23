@@ -17,4 +17,5 @@ class Driver:
         dnf = driver_result.dnf
         grid_position = int(driver_result["GridPosition"])
         finishing_position = -1 if dnf else int(driver_result["Position"])
+
         return cls(abbreviation, name, team_name, grid_position, finishing_position)

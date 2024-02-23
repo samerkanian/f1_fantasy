@@ -6,6 +6,7 @@ from f1_fantasy.scoring.constants import (
     FINISHING_REFERENCE_POINTS,
     IMPROVEMENT_POINTS_PER_POSITION,
     RACE_COMPLETION_POINTS,
+    BEATING_TEAMMATE_POINTS,
 )
 
 
@@ -66,3 +67,14 @@ def get_improvement_score(grid_position, finishing_position):
 
 def get_race_completion_score(num_driver_laps, num_laps):
     return (float(num_driver_laps) / num_laps) * RACE_COMPLETION_POINTS
+
+
+def get_beating_teammate_score(driver, session_results):
+    teammate_results = session_results[
+        (session_results.TeamId == driver.team_name) & (session_results.Abbreviation != driver.abbreviation)
+    ].iloc[0]
+
+    if teammate_results["Position"] > driver.finishing_position:
+        return BEATING_TEAMMATE_POINTS
+    else:
+        return 0
